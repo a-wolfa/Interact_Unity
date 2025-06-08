@@ -1,3 +1,5 @@
+using HierachiesInteract.Interactables;
+using HierachiesInteract.Interactables.Abstractions;
 using Interactable;
 
 namespace Visitors.Abstractions
@@ -8,5 +10,9 @@ namespace Visitors.Abstractions
         // Example:
         void Visit(TreasureChest treasureChest);
         void Visit(Door door);
+        
+        void Visit(MetalChestInterabtable metalChest);
+        
+        void Visit(WoodenChestInteractable woodenChestInteractable);
     }
 }

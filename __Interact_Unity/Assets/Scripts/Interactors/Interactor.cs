@@ -1,6 +1,6 @@
-using Interactable.Abstractions;
+using HierachiesInteract.Interactables.Abstractions;
 using UnityEngine;
-using Visitors;
+using Visitors.Abstractions;
 using Zenject;
 
 namespace Interactors
@@ -9,21 +9,22 @@ namespace Interactors
     {
         public float interactionDistance = 3f;
         public KeyCode interactKey = KeyCode.E;
+        
+        public new UnityEngine.Camera camera;
 
-        [Inject] private PlayerInteractionVisitor _interactionVisitor;
+        [Inject] private IInteractionVisitor _interactionVisitor;
 
         private void Update()
         {
             if (Input.GetKeyDown(interactKey))
             {
                 Interact();
-                Debug.Log("Interaction triggered");
             }
         }
 
         private void Interact()
         {
-            Ray ray = new(transform.position, transform.forward);
+            Ray ray = new(transform.position,  camera.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
             {
                 if (hit.collider.TryGetComponent(out IInteractable interactable))
